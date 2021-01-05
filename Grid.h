@@ -10,4 +10,5 @@ class Grid {
         void nextGeneration();
         void set(unsigned short x, unsigned short y);
         void unset(unsigned short x, unsigned short y);
+        unsigned char getNeighborCount(unsigned short x, unsigned short y);
 };

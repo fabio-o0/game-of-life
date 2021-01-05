@@ -17,21 +17,24 @@ void Grid::unset(unsigned short x, unsigned short y) {
     this->values[y][x] = false;
 }
 
+unsigned char Grid::getNeighborCount(unsigned short x, unsigned short y) {
+    unsigned char neighbors = 0;
+    for (char dy = -1; dy < 2; dy++) {
+        for (char dx = -1; dx < 2; dx++) {
+            if (y + dy >= 0 && y + dy < this->height && x + dx >= 0 && x + dx < this->width && !(dy == 0 && dx == 0) && this->values[y + dy][x + dx]) {
+                neighbors++;
+            }
+        }
+    }
+    return neighbors;
+}
+
 void Grid::nextGeneration() {
     std::vector<unsigned short> set;
     std::vector<unsigned short> unset;
     for (unsigned short i = 0; i < this->height; i++) {
         for (unsigned short j = 0; j < this->width; j++) {
-            unsigned char neighbors = 0;
-            for (char y = -1; y < 2; y++) {
-                for (char x = -1; x < 2; x++) {
-                    //printf("checked (%d, %d)\n", j + x, y + i);
-                    if (i + y >= 0 && i + y < this->height && j + x >= 0 && j + x < this->width && !(y == 0 || x == 0) && this->values[i + y][j + x]) {
-                        neighbors++;
-                    }
-                }
-            }
-            //printf("(%d, %d) has %d neighbors\n", j, i, neighbors);
+            unsigned char neighbors = this->getNeighborCount(j, i);
             if (this->values[i][j] && neighbors != 2 && neighbors != 3) {
                 unset.push_back(j);
                 unset.push_back(i);
@@ -49,3 +52,4 @@ void Grid::nextGeneration() {
         this->unset(unset[i], unset[i + 1]);
     }
 }
+
