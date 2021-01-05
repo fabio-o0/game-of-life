@@ -15,8 +15,9 @@ Renderer::Renderer(Grid* grid) {
 void Renderer::show() {
     for (unsigned short i = 0; i < this->grid->height; i++) {
         for (unsigned short j = 0; j < this->grid->width; j++) {
-            if (this->grid->values[i][j]) mvaddch(i, j, 219);
+            if (this->grid->values[i][j]) mvaddch(i, j, '\xD8');
             else mvaddch(i, j, ' ');
         }
     }
+    refresh();
 }
