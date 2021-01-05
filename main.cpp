@@ -42,7 +42,7 @@ int main(int argv, char** argc) {
     grid->set(35, 4);
     grid->set(36, 3);
     grid->set(36, 4);
-    unsigned long long count = 0;
+    unsigned short count = 0;
     while (1) {
         renderer->show();
        if (count == 600) {
